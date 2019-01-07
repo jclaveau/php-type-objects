@@ -168,6 +168,38 @@ class NumberInstanceTest extends \PHPUnit_Framework_TestCase
 
     /**
      */
+    public function test_plus()
+    {
+        $this->assertTrue( Number(3)->plus(4)->isEqualTo(7) );
+        $this->assertTrue( Number(-3)->plus(4)->isEqualTo(1) );
+    }
+
+    /**
+     */
+    public function test_minus()
+    {
+        $this->assertTrue( Number(3)->minus(4)->isEqualTo(-1) );
+        $this->assertTrue( Number(-3)->minus(4)->isEqualTo(-7) );
+    }
+
+    /**
+     */
+    public function test_multipliedBy()
+    {
+        $this->assertTrue( Number(3)->multipliedBy(4)->isEqualTo(12) );
+        $this->assertTrue( Number(-3)->multipliedBy(4)->isEqualTo(-12) );
+    }
+
+    /**
+     */
+    public function test_divideBy()
+    {
+        $this->assertTrue( Number(3)->dividedBy(4)->isEqualTo(.75) );
+        $this->assertTrue( Number(-3)->dividedBy(4)->isEqualTo(-.75) );
+    }
+
+    /**
+     */
     public function test_ceil()
     {
         $cases = [

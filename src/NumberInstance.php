@@ -91,6 +91,56 @@ class NumberInstance extends Type
     
     
     // MATHS https://secure.php.net/manual/fr/ref.math.php
+    
+    /**
+     */
+    public function plus($value)
+    {
+        if ($this->callOnCloneIfImmutable($result)) {
+            return $result;
+        }
+        
+        $this->setValue( Numbers::add($this->getValue(), $value) );
+        return $this;
+    }
+    
+    /**
+     */
+    public function minus($value)
+    {
+        if ($this->callOnCloneIfImmutable($result)) {
+            return $result;
+        }
+        
+        $this->setValue( Numbers::substract($this->getValue(), $value) );
+        return $this;
+    }
+    
+    /**
+     */
+    public function multipliedBy($value)
+    {
+        if ($this->callOnCloneIfImmutable($result)) {
+            return $result;
+        }
+        
+        $this->setValue( Numbers::multiply($this->getValue(), $value) );
+        return $this;
+    }
+    
+    /**
+     */
+    public function dividedBy($value)
+    {
+        if ($this->callOnCloneIfImmutable($result)) {
+            return $result;
+        }
+        
+        $this->setValue( Numbers::divide($this->getValue(), $value) );
+        return $this;
+    }
+    
+    
     // ceil()
     // round()
     // floor()
@@ -138,7 +188,7 @@ class NumberInstance extends Type
     
     /**
      */
-    public function rand()
+    public function random()
     {
         if ($this->callOnCloneIfImmutable($result)) {
             return $result;
@@ -148,7 +198,7 @@ class NumberInstance extends Type
     
     /**
      */
-    public function pow($exp)
+    public function power($exp)
     {
         assert(Types::isNumber($exp));
         if ($this->callOnCloneIfImmutable($result)) {
@@ -159,7 +209,7 @@ class NumberInstance extends Type
     
     /**
      */
-    public function sqrt()
+    public function squareRoot()
     {
         if ($this->callOnCloneIfImmutable($result)) {
             return $result;
