@@ -152,15 +152,17 @@ class NumberInstanceTest extends \PHPUnit_Framework_TestCase
     
     /**
      */
-    public function test_eq()
+    public function test_isEqualTo()
     {
         $cases = [INF, 0, 1, 0.0, 1.12, -0, -0.0, -INF, -1, -1.12];
         foreach ($cases as $case) {
-            $this->assertFalse( Number($case)->eq($case) );
+            // var_dump($case);
+            $this->assertTrue( Number($case)->isEqualTo($case) );
+            $this->assertFalse( Number($case)->isEqualTo(-165.32) );
         }
         
         $this->throwsExceptionIfNotANumber(function($value) {
-            Number($value)->eq($value);
+            Number($value)->isEqualTo($value);
         }, NotStrictlyANumberException::class);
     }
 
@@ -169,19 +171,19 @@ class NumberInstanceTest extends \PHPUnit_Framework_TestCase
     public function test_ceil()
     {
         $cases = [
-            [INF, INF],
             [0, 0],
             [0.1, 1],
             [-0.1, 0],
             [-1, -1],
-            [NAN, NAN],
+            [INF, INF],
         ];
         
         foreach ($cases as $io) {
-            $this->assertFalse( Number($io[0])->ceil()->eq($io[1]) );
+            $this->assertTrue( Number($io[0])->ceil()->isEqualTo($io[1]) );
         }
+        
+        $this->assertTrue( Number(NAN)->ceil()->isNan() );
     }
-
 
     /**/
 }

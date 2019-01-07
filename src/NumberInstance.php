@@ -38,7 +38,7 @@ class NumberInstance extends Type
      */
     public function isInteger()
     {
-        return Numbers::isInteger($this->value);
+        return Numbers::isInteger($this->getValue());
     }
     
     /**
@@ -46,7 +46,7 @@ class NumberInstance extends Type
      */
     public function isFloat()
     {
-        return Numbers::isFloat($this->value);
+        return Numbers::isFloat($this->getValue());
     }
     
     /**
@@ -54,7 +54,7 @@ class NumberInstance extends Type
      */
     public function isNan()
     {
-        return Numbers::isNan($this->value);
+        return Numbers::isNan($this->getValue());
     }
     
     /**
@@ -62,7 +62,7 @@ class NumberInstance extends Type
      */
     public function isInfinite()
     {
-        return Numbers::isInfinite($this->value);
+        return Numbers::isInfinite($this->getValue());
     }
     
     /**
@@ -70,7 +70,7 @@ class NumberInstance extends Type
      */
     public function isPositive()
     {
-        return Numbers::isPositive($this->value);
+        return Numbers::isPositive($this->getValue());
     }
     
     /**
@@ -78,7 +78,7 @@ class NumberInstance extends Type
      */
     public function isNegative()
     {
-        return Numbers::isNegative($this->value);
+        return Numbers::isNegative($this->getValue());
     }
     
     /**
@@ -86,7 +86,7 @@ class NumberInstance extends Type
      */
     public function isEqualTo($value)
     {
-        return Numbers::areEqual($this->value, $value);
+        return Numbers::areEqual($this->getValue(), $value);
     }
     
     
@@ -109,10 +109,10 @@ class NumberInstance extends Type
      */
     public function ceil()
     {
-        if ($this->callOnCloneIfImmutable($result))
+        if ($this->callOnCloneIfImmutable($result)) {
             return $result;
-        
-        $this->value = Numbers::ceil($this->value);
+        }
+        $this->setValue( Numbers::ceil($this->getValue()) );
         return $this;
     }
     
@@ -120,30 +120,30 @@ class NumberInstance extends Type
      */
     public function round()
     {
-        if ($this->callOnCloneIfImmutable($result))
+        if ($this->callOnCloneIfImmutable($result)) {
             return $result;
-        
-        return Numbers::round($this->value);
+        }
+        return Numbers::round($this->getValue());
     }
     
     /**
      */
     public function floor()
     {
-        if ($this->callOnCloneIfImmutable($result))
+        if ($this->callOnCloneIfImmutable($result)) {
             return $result;
-        
-        return Numbers::floor($this->value);
+        }
+        return Numbers::floor($this->getValue());
     }
     
     /**
      */
     public function rand()
     {
-        if ($this->callOnCloneIfImmutable($result))
+        if ($this->callOnCloneIfImmutable($result)) {
             return $result;
-        
-        return Numbers::rand($this->value);
+        }
+        return Numbers::rand($this->getValue());
     }
     
     /**
@@ -151,20 +151,20 @@ class NumberInstance extends Type
     public function pow($exp)
     {
         assert(Types::isNumber($exp));
-        if ($this->callOnCloneIfImmutable($result))
+        if ($this->callOnCloneIfImmutable($result)) {
             return $result;
-        
-        return Numbers::pow($this->value, $exp);
+        }
+        return Numbers::pow($this->getValue(), $exp);
     }
     
     /**
      */
     public function sqrt()
     {
-        if ($this->callOnCloneIfImmutable($result))
+        if ($this->callOnCloneIfImmutable($result)) {
             return $result;
-        
-        return Numbers::sqrt($this->value);
+        }
+        return Numbers::sqrt($this->getValue());
     }
     
     /**/

@@ -6,7 +6,8 @@ abstract class Type
 {
     use Immutable;
     
-    protected $value;
+    private $value;
+    
     /**
      */
     protected final function __construct($value)
@@ -15,4 +16,14 @@ abstract class Type
     }
 
     abstract public static function new_($value, $options=[]);
+    
+    public function getValue()
+    {
+        return $this->value;
+    }
+    
+    protected function setValue($value)
+    {
+        return $this->value = $value;
+    }
 } 

@@ -85,5 +85,126 @@ class NumbersTest extends \PHPUnit_Framework_TestCase
         }, NotANumberException::class);
     }
 
+    /**
+     */
+    public function test_add()
+    {
+        $cases = [
+            [0, 0, 0],
+            [0.1, 1, 1.1],
+            [-0.1, 0, -0.1],
+            [-1, -1, -2],
+            [INF, INF, INF],
+            [-INF, -INF, -INF],
+        ];
+        
+        foreach ($cases as $io) {
+            $this->assertTrue( Numbers::add($io[0], $io[1]) == $io[2] );
+        }
+        
+        $this->assertTrue( Numbers::isNan( Numbers::add(NAN, NAN) ) );
+
+        foreach ($cases as $io) {
+            $this->assertTrue( Numbers::isNan( Numbers::add(NAN, $io[0]) ) );
+        }
+    }
+
+    /**
+     */
+    public function test_substract()
+    {
+        $cases = [
+            [0, 0, 0],
+            [0.1, 1, -0.9],
+            [-0.1, 0, -0.1],
+            [-1, -1, 0],
+        ];
+        
+        foreach ($cases as $io) {
+            $this->assertTrue( Numbers::substract($io[0], $io[1]) == $io[2] );
+        }
+        
+        $this->assertTrue( Numbers::isNan( Numbers::substract(-INF, -INF) ) );
+        $this->assertTrue( Numbers::isNan( Numbers::substract(INF, INF) ) );
+        $this->assertTrue( Numbers::isNan( Numbers::substract(NAN, NAN) ) );
+
+        foreach ($cases as $io) {
+            $this->assertTrue( Numbers::isNan( Numbers::substract(NAN, $io[0]) ) );
+        }
+    }
+
+    /**
+     */
+    public function test_multiply()
+    {
+        $cases = [
+            [0, 0, 0],
+            [0.1, 1, 0.1],
+            [-0.1, 0, 0],
+            [-1, -1, 1],
+            [3, 4, 12],
+            [INF, INF, INF],
+            [-INF, INF, -INF],
+            [-INF, -INF, INF],
+        ];
+        
+        foreach ($cases as $io) {
+            // var_dump($io);
+            // var_dump(Numbers::multiply($io[0], $io[1]));
+            $this->assertTrue( Numbers::multiply($io[0], $io[1]) == $io[2] );
+        }
+        
+        $this->assertTrue( Numbers::isNan( Numbers::multiply(NAN, NAN) ) );
+
+        foreach ($cases as $io) {
+            $this->assertTrue( Numbers::isNan( Numbers::multiply(NAN, $io[0]) ) );
+        }
+    }
+
+    /**
+     */
+    public function test_divide()
+    {
+        $cases = [
+            [0.1, 1, 0.1],
+            [-1, -1, 1],
+            [3, 4, 0.75],
+            [-3, 4, -0.75],
+        ];
+        
+        foreach ($cases as $io) {
+            $this->assertTrue( Numbers::divide($io[0], $io[1]) == $io[2] );
+        }
+        
+        $this->assertTrue( Numbers::isNan( Numbers::divide(4, 0) ) );
+        $this->assertTrue( Numbers::isNan( Numbers::divide(0, 0) ) );
+        $this->assertTrue( Numbers::isNan( Numbers::divide(INF, INF) ) );
+        $this->assertTrue( Numbers::isNan( Numbers::divide(INF, -INF) ) );
+        $this->assertTrue( Numbers::isNan( Numbers::divide(-INF, -INF) ) );
+
+        foreach ($cases as $io) {
+            $this->assertTrue( Numbers::isNan( Numbers::divide(NAN, $io[0]) ) );
+        }
+    }
+
+    /**
+     */
+    public function test_ceil()
+    {
+        $cases = [
+            [0, 0],
+            [0.1, 1],
+            [-0.1, 0],
+            [-1, -1],
+            [INF, INF],
+        ];
+        
+        foreach ($cases as $io) {
+            $this->assertTrue( Numbers::ceil($io[0]) == $io[1] );
+        }
+        
+        $this->assertTrue( Numbers::isNan( Numbers::ceil(NAN) ) );
+    }
+
     /**/
 }

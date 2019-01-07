@@ -26,7 +26,7 @@ abstract class Numbers
         if (Types::isNumber($value)) {
             return $value;
         }
-        elseif($value instanceof Number) {
+        elseif ($value instanceof NumberInstance) {
             return $value->getValue();
         }
         else {
@@ -129,6 +129,38 @@ abstract class Numbers
     // cos()
     // sin()
     // tan()
+    
+    /**
+     */
+    public static function add($value1, $value2)
+    {
+        return static::getNativeNumber($value1) + static::getNativeNumber($value2);
+    }
+    
+    /**
+     */
+    public static function substract($value1, $value2)
+    {
+        return static::getNativeNumber($value1) - static::getNativeNumber($value2);
+    }
+    
+    /**
+     */
+    public static function multiply($value1, $value2)
+    {
+        return static::getNativeNumber($value1) * static::getNativeNumber($value2);
+    }
+    
+    /**
+     */
+    public static function divide($value1, $value2)
+    {
+        if ($vale2 = static::getNativeNumber($value2) == 0) {
+            return NAN;
+        }
+        
+        return static::getNativeNumber($value1) / static::getNativeNumber($value2);
+    }
     
     /**
      */
