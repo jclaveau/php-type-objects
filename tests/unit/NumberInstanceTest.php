@@ -148,8 +148,6 @@ class NumberInstanceTest extends \PHPUnit_Framework_TestCase
         }, NotStrictlyANumberException::class);
     }
 
-    // MATH
-    
     /**
      */
     public function test_isEqualTo()

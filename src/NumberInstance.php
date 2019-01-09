@@ -90,8 +90,6 @@ class NumberInstance extends Type
     }
     
     
-    // MATHS https://secure.php.net/manual/fr/ref.math.php
-    
     /**
      */
     public function plus($value)
@@ -140,6 +138,8 @@ class NumberInstance extends Type
         return $this;
     }
     
+    
+    // MATHS https://secure.php.net/manual/fr/ref.math.php
     
     // ceil()
     // round()

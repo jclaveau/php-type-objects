@@ -62,7 +62,7 @@ abstract class Types
      */
     public static function isNumber($value)
     {
-        return is_float($value) 
+        return is_float($value) // includes INF
             || is_int($value) 
             // || $value instanceof Number ???
             ;

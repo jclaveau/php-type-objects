@@ -23,7 +23,7 @@ abstract class Numbers
      */
     public static function getNativeNumber($value)
     {
-        if (Types::isNumber($value)) {
+        if (Types::isNumber($value) || Types::isNull($value)) {
             return $value;
         }
         elseif ($value instanceof NumberInstance) {

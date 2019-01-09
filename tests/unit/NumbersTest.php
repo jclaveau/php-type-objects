@@ -6,7 +6,8 @@ class NumbersTest extends \PHPUnit_Framework_TestCase
 {
     public function throwsExceptionIfNotANumber(callable $call, $exceptionClass)
     {
-        foreach (['lala', null, [], (object)[]] as $value) {
+        // foreach (['lala', null, [], (object)[]] as $value) {
+        foreach (['lala', [], (object)[]] as $value) {
             try {
                 $call( $value );
                 $this->assertTrue(false, "no exception occured when '$exceptionClass' expected");
@@ -68,6 +69,8 @@ class NumbersTest extends \PHPUnit_Framework_TestCase
             $this->assertTrue( Numbers::areEqual($float, $float) );
         }
 
+        $this->assertTrue( Numbers::areEqual(null, null) );
+        
         // casts
         $this->assertFalse( Numbers::areEqual(0.1, 0) );
         $this->assertFalse( Numbers::areEqual(0.9, 0) );
@@ -78,7 +81,7 @@ class NumbersTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse( Numbers::areEqual(NAN, NAN) );
 
-        $others = ['lala', null, [], (object)[] ];
+        // $others = ['lala', null, [], (object)[] ];
         $this->throwsExceptionIfNotANumber(function($value) {
             Numbers::areEqual($value, 10);
             Numbers::areEqual(10, $value);
@@ -96,6 +99,9 @@ class NumbersTest extends \PHPUnit_Framework_TestCase
             [-1, -1, -2],
             [INF, INF, INF],
             [-INF, -INF, -INF],
+            [null, null, null],
+            [0.1, null, 0.1],
+            [1, null, 1],
         ];
         
         foreach ($cases as $io) {
@@ -118,6 +124,9 @@ class NumbersTest extends \PHPUnit_Framework_TestCase
             [0.1, 1, -0.9],
             [-0.1, 0, -0.1],
             [-1, -1, 0],
+            [null, null, null],
+            [0.1, null, 0.1],
+            [1, null, 1],
         ];
         
         foreach ($cases as $io) {
@@ -146,15 +155,37 @@ class NumbersTest extends \PHPUnit_Framework_TestCase
             [INF, INF, INF],
             [-INF, INF, -INF],
             [-INF, -INF, INF],
+            [null, null, null],
+            [0.1, null, null],
+            [1, null, null],
         ];
         
         foreach ($cases as $io) {
-            // var_dump($io);
-            // var_dump(Numbers::multiply($io[0], $io[1]));
-            $this->assertTrue( Numbers::multiply($io[0], $io[1]) == $io[2] );
+            $this->assertTrue( 
+                Numbers::multiply($io[0], $io[1]) == $io[2],
+                'Numbers::multiply(' . var_export($io[0], true)
+                . ', ' . var_export($io[1], true) . ') == ' 
+                . var_export(Numbers::multiply($io[0], $io[1]), true) 
+                . ' != ' . var_export($io[2], true)
+            );
         }
         
-        $this->assertTrue( Numbers::isNan( Numbers::multiply(NAN, NAN) ) );
+        $nanCases = [
+            [NAN, NAN],
+            [NAN, null],
+            [NAN, 1],
+            [NAN, 0.1],
+        ];
+        
+        foreach ($nanCases as $i => $io) {
+            $this->assertTrue( 
+                Numbers::isNan( Numbers::multiply($io[0], $io[1]) ),
+                $i . ' : Numbers::multiply(' . var_export($io[0], true)
+                . ', ' . var_export($io[1], true) . ') == ' 
+                . var_export(Numbers::multiply($io[0], $io[1]), true) 
+                . ' which is not NAN '
+            );
+        }
 
         foreach ($cases as $io) {
             $this->assertTrue( Numbers::isNan( Numbers::multiply(NAN, $io[0]) ) );
@@ -185,6 +216,17 @@ class NumbersTest extends \PHPUnit_Framework_TestCase
         foreach ($cases as $io) {
             $this->assertTrue( Numbers::isNan( Numbers::divide(NAN, $io[0]) ) );
         }
+        
+        $cases = [
+            [null, null, NAN],
+            [0.1, null, NAN],
+            [1, null, NAN],
+        ];
+        
+        foreach ($cases as $io) {
+            $this->assertTrue( Numbers::isNan( Numbers::divide($io[0], $io[1]) ) );
+        }
+        
     }
 
     /**
