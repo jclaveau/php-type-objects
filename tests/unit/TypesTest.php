@@ -4,19 +4,6 @@ use JClaveau\Exceptions\NotANumberException;
 
 class TypesTest extends \PHPUnit_Framework_TestCase
 {
-    public function throwsExceptionIfNotANumber(callable $call, $exceptionClass)
-    {
-        foreach (['lala', [], (object)[]] as $value) {
-            try {
-                $call( $value );
-                $this->assertTrue(false, "no exception occured when '$exceptionClass' expected");
-            }
-            catch (\Exception $e) {
-                $this->assertInstanceOf($exceptionClass, $e);
-            }
-        }
-    }
-
     /**
      */
     public function test_isNull()
