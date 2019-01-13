@@ -9,6 +9,7 @@ use JCLaveau\Exceptions\NotStrictlyANumberException;
 trait Types_Casts_Trait
 {
     protected static $noLoosyCast = true;
+    protected static $comparisonIsStrict = true;
     
     /**
      */
@@ -23,8 +24,7 @@ trait Types_Casts_Trait
         }
         
         if (self::$comparisonIsStrict) {
-            throw new NotABoolException();
-            // throw new NotBoolifiableException(); ??
+            throw new NotBoolifiableException();
         }
         
         return (bool) $value;
@@ -38,17 +38,17 @@ trait Types_Casts_Trait
             return $value;
         }
         
-        if ($value instanceof Numberifiable) {
+        if ($value instanceof Intifiable) {
             return $value->toInt();
         }
         
         if (self::isFloat($value) && ! Numbers::hasDecimalPart($value)) {
+            // 1.0 can be converted to 1 safely
             return (int) $value;
         }
         
         if (self::$comparisonIsStrict) {
-            throw new NotAnIntegerException();
-            // throw new NotBoolifiableException(); ??
+            throw new NotIntifiableException();
         }
         
         return (int) $value;
@@ -62,7 +62,7 @@ trait Types_Casts_Trait
             return $value;
         }
         
-        if ($value instanceof Numberifiable) {
+        if ($value instanceof Floatifiable) {
             return $value->toFloat();
         }
         
@@ -71,8 +71,7 @@ trait Types_Casts_Trait
         }
         
         if (self::$comparisonIsStrict) {
-            throw new NotAnIntegerException();
-            // throw new NotBoolifiableException(); ??
+            throw new NotFloatifiableException();
         }
         
         return (float) $value;
@@ -108,5 +107,5 @@ trait Types_Casts_Trait
         return (float) $value;
     }
     
-    
+    /**/
 } 
