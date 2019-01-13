@@ -19,7 +19,12 @@ use JCLaveau\Exceptions\NotStrictlyANumberException;
     
     // classExists()
 
-
+/**
+ * This class provides helpers for type checking.
+ * + Native checks are strict
+ * + isNumber() gathers Integers and Floats
+ * + Casts  
+ */
 abstract class Types
 {
     protected static $noLoosyCast = true;
@@ -44,7 +49,7 @@ abstract class Types
     /**
      * Checks if the value is an integer
      */
-    public static function isInt($value)
+    public static function isInteger($value)
     {
         return is_int($value);
     }
@@ -66,6 +71,19 @@ abstract class Types
             || is_int($value) 
             // || $value instanceof Number ???
             ;
+    }
+    
+    /**
+     * Checks if the value is a number
+     */
+    public static function isNan($value)
+    {
+        if (! static::isFloat($value)) {
+            // Avoids: is_nan() expects parameter 1 to be double, array given
+            return false;
+        }
+        
+        return is_nan($value);
     }
     
     /**

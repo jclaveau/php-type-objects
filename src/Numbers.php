@@ -40,7 +40,7 @@ abstract class Numbers
     public static function isInteger($value)
     {
         try {
-            return Types::isInt( static::getNativeNumber($value) );
+            return Types::isInteger( static::getNativeNumber($value) );
         }
         catch (NotANumberException $a) {
             return false;
