@@ -119,6 +119,16 @@ abstract class Types
     }
     
     /**
+     * Checks if the value is a resource
+     */
+    public static function isResource($value)
+    {
+        return is_resource($value);
+    }
+    
+    // Contracts
+    
+    /**
      * Checks if the value is a callable
      */
     public static function isCallable($value)
