@@ -1,6 +1,7 @@
 <?php
 namespace JClaveau;
 use JClaveau\Exceptions\NotANumberException;
+use JClaveau\Contracts\Numberifiable;
 // Numbers
     // isMoreThan()
     // isMoreOrEqualThan()
@@ -15,7 +16,7 @@ use JClaveau\Exceptions\NotANumberException;
 /**
  * Number
  */
-class NumberInstance extends Type
+class NumberInstance extends Type implements Numberifiable
 {
     protected $nanable = true;
     protected $nanReason;
@@ -33,6 +34,15 @@ class NumberInstance extends Type
         return new static(Types::toNumber($value));
     }
 
+    /**
+     * Return the native value of the NumberObject
+     */
+    public function toNativeNumber()
+    {
+        return Numbers::toNativeNumber($this->getValue());
+    }
+    
+    
     /**
      * Checks if the value is integer
      */

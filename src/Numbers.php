@@ -19,15 +19,17 @@ use JClaveau\Exceptions\NotANumberException;
 abstract class Numbers
 {
     /**
+     * @param mixed $value
+     * 
      * @return int|float
      */
-    public static function getNativeNumber($value)
+    public static function toNativeNumber($value)
     {
         if (Types::isNumber($value) || Types::isNull($value)) {
             return $value;
         }
-        elseif ($value instanceof NumberInstance) {
-            return $value->getValue();
+        elseif ($value instanceof Numberifiable) {
+            return $value->toNativeNumber();
         }
         else {
             throw new NotANumberException();
@@ -40,7 +42,7 @@ abstract class Numbers
     public static function isInteger($value)
     {
         try {
-            return Types::isInteger( static::getNativeNumber($value) );
+            return Types::isInteger( static::toNativeNumber($value) );
         }
         catch (NotANumberException $a) {
             return false;
@@ -53,7 +55,7 @@ abstract class Numbers
     public static function isFloat($value)
     {
         try {
-            return Types::isFloat( static::getNativeNumber($value) );
+            return Types::isFloat( static::toNativeNumber($value) );
         }
         catch (NotANumberException $a) {
             return false;
@@ -82,7 +84,7 @@ abstract class Numbers
      */
     public static function isPositive($value)
     {
-        return static::getNativeNumber($value) >= 0;
+        return static::toNativeNumber($value) >= 0;
     }
     
     /**
@@ -90,7 +92,7 @@ abstract class Numbers
      */
     public static function isNegative($value)
     {
-        return static::getNativeNumber($value) < 0;
+        return static::toNativeNumber($value) < 0;
     }
     
     /**
@@ -99,7 +101,7 @@ abstract class Numbers
      */
     public static function hasDecimalPart($value)
     {
-        $value = static::getNativeNumber($value);
+        $value = static::toNativeNumber($value);
         return floor($value) != $value;
     }
     
@@ -108,8 +110,8 @@ abstract class Numbers
      */
     public static function areEqual($value1, $value2)
     {
-        $value1 = static::getNativeNumber($value1);
-        $value2 = static::getNativeNumber($value2);
+        $value1 = static::toNativeNumber($value1);
+        $value2 = static::toNativeNumber($value2);
         
         return $value1 == $value2;
     }
@@ -134,74 +136,74 @@ abstract class Numbers
      */
     public static function add($value1, $value2)
     {
-        return static::getNativeNumber($value1) + static::getNativeNumber($value2);
+        return static::toNativeNumber($value1) + static::toNativeNumber($value2);
     }
     
     /**
      */
     public static function substract($value1, $value2)
     {
-        return static::getNativeNumber($value1) - static::getNativeNumber($value2);
+        return static::toNativeNumber($value1) - static::toNativeNumber($value2);
     }
     
     /**
      */
     public static function multiply($value1, $value2)
     {
-        return static::getNativeNumber($value1) * static::getNativeNumber($value2);
+        return static::toNativeNumber($value1) * static::toNativeNumber($value2);
     }
     
     /**
      */
     public static function divide($value1, $value2)
     {
-        if ($vale2 = static::getNativeNumber($value2) == 0) {
+        if ($vale2 = static::toNativeNumber($value2) == 0) {
             return NAN;
         }
         
-        return static::getNativeNumber($value1) / static::getNativeNumber($value2);
+        return static::toNativeNumber($value1) / static::toNativeNumber($value2);
     }
     
     /**
      */
     public static function ceil($value)
     {
-        return ceil( static::getNativeNumber($value) );
+        return ceil( static::toNativeNumber($value) );
     }
     
     /**
      */
     public static function round($value)
     {
-        return round( static::getNativeNumber($value) );
+        return round( static::toNativeNumber($value) );
     }
     
     /**
      */
     public static function floor($value)
     {
-        return floor( static::getNativeNumber($value) );
+        return floor( static::toNativeNumber($value) );
     }
     
     /**
      */
     public static function rand($value)
     {
-        return rand( static::getNativeNumber($value) );
+        return rand( static::toNativeNumber($value) );
     }
     
     /**
      */
     public static function pow($value, $exp)
     {
-        return pow( static::getNativeNumber($value), static::getNativeNumber($exp) );
+        return pow( static::toNativeNumber($value), static::toNativeNumber($exp) );
     }
     
     /**
      */
     public static function sqrt($value)
     {
-        return sqrt( static::getNativeNumber($value) );
+        return sqrt( static::toNativeNumber($value) );
     }
     
 } 

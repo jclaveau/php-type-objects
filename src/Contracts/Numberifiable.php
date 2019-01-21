@@ -1,5 +1,5 @@
 <?php
-namespace JClaveau\Types;
+namespace JClaveau\Contracts;
 
 /**
  * Interface ensuring the instance which implements it can be converted
@@ -7,5 +7,5 @@ namespace JClaveau\Types;
  */
 interface Numberifiable
 {
-    public function toNumber();
+    public function toNativeNumber();
 } 
