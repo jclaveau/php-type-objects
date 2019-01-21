@@ -3,19 +3,14 @@ namespace JClaveau;
 
 use JClaveau\Exceptions\NotANumberException;
 use JClaveau\Contracts\Numberifiable;
-// Numbers
-    // isMoreThan()
-    // isMoreOrEqualThan()
-    // isLessThan()
-    // isLessOrEqualThan()
-    // isResource()
-    
-    // format()
-    
-    // https://secure.php.net/manual/fr/ref.math.php
 
 /**
  * NumberObject
+ * 
+ * @todo isResource()
+ * @todo format()
+ * 
+ * @see https://secure.php.net/manual/fr/ref.math.php
  */
 class NumberObject extends Type implements Numberifiable
 {
@@ -93,13 +88,63 @@ class NumberObject extends Type implements Numberifiable
     }
     
     /**
-     * Checks if the value is negative
+     * Checks if the value of the current instance is greater than the
+     * parameter
+     * 
+     * @param  int|float|Numberifiable $valueToCompare
+     * @return bool
      */
-    public function isEqualTo($value)
+    public function isGreaterThan($valueToCompare)
     {
-        return Numbers::areEqual($this->getValue(), $value);
+        return Numbers::isGreaterThan($this->getValue(), $valueToCompare);
     }
     
+    /**
+     * Checks if the value is equal to the parameter
+     * 
+     * @param  int|float|Numberifiable $valueToCompare
+     * @return bool
+     */
+    public function isEqualTo($valueToCompare)
+    {
+        return Numbers::areEqual($this->getValue(), $valueToCompare);
+    }
+    
+    /**
+     * Checks if the value of the current instance is lower than the
+     * parameter
+     * 
+     * @param  int|float|Numberifiable $valueToCompare
+     * @return bool
+     */
+    public function isLowerThan($valueToCompare)
+    {
+        return Numbers::isLowerThan($this->getValue(), $valueToCompare);
+    }
+    
+    /**
+     * Checks if the value of the current instance is greater than the
+     * parameter
+     * 
+     * @param  int|float|Numberifiable $valueToCompare
+     * @return bool
+     */
+    public function isGreaterOrEqualTo($valueToCompare)
+    {
+        return Numbers::isGreaterOrEqualTo($this->getValue(), $valueToCompare);
+    }
+    
+    /**
+     * Checks if the value of the current instance is lower or equal to 
+     * the parameter
+     * 
+     * @param  int|float|Numberifiable $valueToCompare
+     * @return bool
+     */
+    public function isLowerOrEqualTo($valueToCompare)
+    {
+        return Numbers::isLowerOrEqualTo($this->getValue(), $valueToCompare);
+    }
     
     /**
      */

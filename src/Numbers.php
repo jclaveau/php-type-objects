@@ -116,7 +116,70 @@ abstract class Numbers
         return $value1 == $value2;
     }
     
+    /**
+     * Checks if the value of the first value is greater than the second
+     * parameter
+     * 
+     * @param  int|float|Numberifiable $value1
+     * @param  int|float|Numberifiable $value2
+     * @return bool
+     */
+    public static function isGreaterThan($value1, $value2)
+    {
+        $value1 = static::toNativeNumber($value1);
+        $value2 = static::toNativeNumber($value2);
+        
+        return $value1 > $value2;
+    }
     
+    /**
+     * Checks if the value of the first value is lower than the second
+     * parameter
+     * 
+     * @param  int|float|Numberifiable $value1
+     * @param  int|float|Numberifiable $value2
+     * @return bool
+     */
+    public static function isLowerThan($value1, $value2)
+    {
+        $value1 = static::toNativeNumber($value1);
+        $value2 = static::toNativeNumber($value2);
+        
+        return $value1 < $value2;
+    }
+    
+    /**
+     * Checks if the value of the first value is greater than the second
+     * parameter
+     * 
+     * @param  int|float|Numberifiable $value1
+     * @param  int|float|Numberifiable $value2
+     * @return bool
+     */
+    public static function isGreaterOrEqualTo($value1, $value2)
+    {
+        $value1 = static::toNativeNumber($value1);
+        $value2 = static::toNativeNumber($value2);
+        
+        return $value1 >= $value2;
+    }
+    
+    /**
+     * Checks if the value of the first value is lower or equal to 
+     * the second parameter
+     * 
+     * @param  int|float|Numberifiable $value1
+     * @param  int|float|Numberifiable $value2
+     * @return bool
+     */
+    public static function isLowerOrEqualTo($value1, $value2)
+    {
+        $value1 = static::toNativeNumber($value1);
+        $value2 = static::toNativeNumber($value2);
+        
+        return $value1 >= $value2;
+    }
+        
     // MATHS https://secure.php.net/manual/fr/ref.math.php
     // ceil()
     // round()

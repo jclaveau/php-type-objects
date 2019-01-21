@@ -154,13 +154,108 @@ class NumberObjectTest extends \PHPUnit_Framework_TestCase
     {
         $cases = [INF, 0, 1, 0.0, 1.12, -0, -0.0, -INF, -1, -1.12];
         foreach ($cases as $case) {
-            // var_dump($case);
             $this->assertTrue( Number($case)->isEqualTo($case) );
             $this->assertFalse( Number($case)->isEqualTo(-165.32) );
         }
         
         $this->throwsExceptionIfNotANumber(function($value) {
             Number($value)->isEqualTo($value);
+        }, NotStrictlyANumberException::class);
+    }
+
+    /**
+     */
+    public function test_isLowerThan()
+    {
+        $casesLower = [0.0, -0, 0, -0.0, -INF, -1, -1.12];
+        foreach ($casesLower as $case) {
+            // var_dump($case);
+            $this->assertFalse( Number($case)->isLowerThan($case) );
+            $this->assertTrue( Number($case)->isLowerThan(0.2) );
+        }
+        
+        $casesGreater = [INF, 1, 1.12];
+        foreach ($casesGreater as $case) {
+            // var_dump($case);
+            $this->assertFalse( Number($case)->isLowerThan($case) );
+            $this->assertFalse( Number($case)->isLowerThan(0.2) );
+        }
+        
+        $this->throwsExceptionIfNotANumber(function($value) {
+            Number($value)->isLowerThan($value);
+            
+        }, NotStrictlyANumberException::class);
+    }
+
+    /**
+     */
+    public function test_isGreaterThan()
+    {
+        $casesLower = [0.0, -0, 0, -0.0, -INF, -1, -1.12];
+        foreach ($casesLower as $case) {
+            // var_dump($case);
+            $this->assertFalse( Number($case)->isGreaterThan($case) );
+            $this->assertFalse( Number($case)->isGreaterThan(0.2) );
+        }
+        
+        $casesGreater = [INF, 1, 1.12];
+        foreach ($casesGreater as $case) {
+            // var_dump($case);
+            $this->assertFalse( Number($case)->isGreaterThan($case) );
+            $this->assertTrue( Number($case)->isGreaterThan(0.2) );
+        }
+        
+        $this->throwsExceptionIfNotANumber(function($value) {
+            
+            Number($value)->isGreaterThan($value);
+        }, NotStrictlyANumberException::class);
+    }
+
+    /**
+     */
+    public function test_isLowerOrEqualTo()
+    {
+        $casesLower = [0.0, -0, 0, -0.0, -INF, -1, -1.12];
+        foreach ($casesLower as $case) {
+            // var_dump($case);
+            $this->assertTrue( Number($case)->isLowerOrEqualTo($case) );
+            $this->assertFalse( Number($case)->isLowerOrEqualTo(0.2) );
+        }
+        
+        $casesGreater = [INF, 1, 1.12];
+        foreach ($casesGreater as $case) {
+            // var_dump($case);
+            $this->assertTrue( Number($case)->isLowerOrEqualTo($case) );
+            $this->assertTrue( Number($case)->isLowerOrEqualTo(0.2) );
+        }
+        
+        $this->throwsExceptionIfNotANumber(function($value) {
+            
+            Number($value)->isLowerOrEqualTo($value);
+        }, NotStrictlyANumberException::class);
+    }
+
+    /**
+     */
+    public function test_isGreaterOrEqualThan()
+    {
+        $casesLower = [0.0, -0, 0, -0.0, -INF, -1, -1.12];
+        foreach ($casesLower as $case) {
+            // var_dump($case);
+            $this->assertTrue( Number($case)->isGreaterOrEqualTo($case) );
+            $this->assertFalse( Number($case)->isGreaterOrEqualTo(0.2) );
+        }
+        
+        $casesGreater = [INF, 1, 1.12];
+        foreach ($casesGreater as $case) {
+            // var_dump($case);
+            $this->assertTrue( Number($case)->isGreaterOrEqualTo($case) );
+            $this->assertTrue( Number($case)->isGreaterOrEqualTo(0.2) );
+        }
+        
+        $this->throwsExceptionIfNotANumber(function($value) {
+            
+            Number($value)->isGreaterOrEqualTo($value);
         }, NotStrictlyANumberException::class);
     }
 
