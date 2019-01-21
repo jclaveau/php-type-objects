@@ -4,7 +4,7 @@ namespace JClaveau;
 use JClaveau\Exceptions\NotANumberException;
 use JClaveau\Exceptions\NotStrictlyANumberException;
 
-class NumberInstanceTest extends \PHPUnit_Framework_TestCase
+class NumberObjectTest extends \PHPUnit_Framework_TestCase
 {
     public function throwsExceptionIfNotANumber(callable $call, $exceptionClass)
     {
@@ -20,16 +20,16 @@ class NumberInstanceTest extends \PHPUnit_Framework_TestCase
     }
     
     /**
-     * NumberInstance::new_ must never be called in a other test
+     * NumberObject::new_ must never be called in a other test
      */
     public function test_new_()
     {
         foreach ([0.0, 0.1, -0.1, NAN, INF, 0, 1, -1, -0, 0x539, 0b10100111001, 1337e0] as $value) {
-            $this->assertTrue( NumberInstance::new_($value) instanceof NumberInstance );
+            $this->assertTrue( NumberObject::new_($value) instanceof NumberObject );
         }
         
         $this->throwsExceptionIfNotANumber(function($value) {
-            NumberInstance::new_($value);
+            NumberObject::new_($value);
         }, NotStrictlyANumberException::class);
     }
 
@@ -38,7 +38,7 @@ class NumberInstanceTest extends \PHPUnit_Framework_TestCase
     public function test_Number_function()
     {
         foreach ([0.0, 0.1, -0.1, NAN, INF, 0, 1, -1, -0, 0x539, 0b10100111001, 1337e0] as $value) {
-            $this->assertTrue( Number($value) instanceof NumberInstance );
+            $this->assertTrue( Number($value) instanceof NumberObject );
         }
         
         $this->throwsExceptionIfNotANumber(function($value) {

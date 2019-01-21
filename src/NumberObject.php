@@ -1,5 +1,6 @@
 <?php
 namespace JClaveau;
+
 use JClaveau\Exceptions\NotANumberException;
 use JClaveau\Contracts\Numberifiable;
 // Numbers
@@ -14,9 +15,9 @@ use JClaveau\Contracts\Numberifiable;
     // https://secure.php.net/manual/fr/ref.math.php
 
 /**
- * Number
+ * NumberObject
  */
-class NumberInstance extends Type implements Numberifiable
+class NumberObject extends Type implements Numberifiable
 {
     protected $nanable = true;
     protected $nanReason;
